@@ -1,0 +1,134 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Barra de navegación superior */
+.navbar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7ae764;
+    padding: 10px 20px;
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* Estilos del logo en navbar-top */
+.logo-nvtop img {
+    height: 60px;
+    width: auto;
+}
+
+/* Estilos de los botones en navbar-top */
+.buttons-nvtop .btn-nvtop {
+    background-color: #5ac246;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.buttons-nvtop .btn-nvtop:hover {
+    background-color: #777;
+}
+
+/* Barra de navegación inferior */
+.navbar-bottom {
+    background-color: #5ac246; /* Color de fondo de la barra inferior */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center; /* Alineación centrada de los botones */
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    top: 80px; /* Justo debajo de navbar-top */
+    left: 0;
+    z-index: 1000;
+}
+
+/* Estilos de los botones en navbar-bottom */
+.buttons-nvbottom .btn-nvbottom {
+    background-color: transparent; /* Fondo transparente */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: color 0.3s ease, transform 0.3s ease; /* Transición suave */
+    font-size: 16px; /* Tamaño de letra */
+}
+
+.buttons-nvbottom .btn-nvbottom:hover {
+    color: #333; /* Cambiar el color del texto en hover */
+    transform: scale(1.01); /* Efecto de agrandar ligeramente en hover */
+}
+
+/* Para darle más estilo, podríamos añadir un efecto de sombra en hover */
+.buttons-nvbottom .btn-nvbottom:hover {
+    color: #333; /* Cambiar el color del texto en hover */
+    transform: scale(1.01); /* Efecto de agrandar ligeramente */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra en hover */
+}
+
+
+/* Barra de navegación lateral izquierda */
+.sidebar-left {
+    position: fixed;
+    top: 110px;
+    left: 0;
+    height: calc(100% - 110px);
+    width: 200px;
+    background: linear-gradient(135deg, #cfcfcf, #fafafa); /* Fondo dinámico */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra en la derecha */
+    padding-top: 20px;
+    z-index: 999;
+}
+
+/* Lista de la barra lateral */
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Estilos de los enlaces de la barra lateral */
+.nav-list li {
+    margin: 15px 0;
+}
+
+.nav-list a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    background-color: transparent; /* Sin fondo de botón */
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+.nav-list a:hover {
+    background-color: #8a8a8a; /* Cambio de color en hover */
+    transform: scale(1.01); /* Efecto de agrandar ligeramente */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra en hover */
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 220px; /* Espacio para la barra lateral */
+    padding: 20px;
+    margin-top: 140px; /* Espacio debajo de las dos navbar */
+}
