@@ -69,10 +69,10 @@ try {
             padding: 10px;
             border-radius: 5px;
             text-align: center;
-            color: white;
+            color: #2ECC71;
         }
         .status.approved {
-            background-color: #28a745;
+            background-color: #2ECC71;
         }
         .status.failed {
             background-color: #dc3545;

@@ -142,7 +142,7 @@
     <h2>Crear una cuenta</h2>
 
     <!-- Formulario de Login -->
-    <form method="POST" action="">
+    <form method="POST" action="guardar_usuario.php">
         <div class="form-row">
             <div class="form-group">
                 <label for="nombres">Nombres:</label>

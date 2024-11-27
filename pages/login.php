@@ -1,3 +1,53 @@
+<?php
+// Incluir conexión a la base de datos
+include 'db_connect.php';
+
+// Iniciar la sesión
+session_start();
+
+// Mensaje de error/success
+$mensaje = "";
+
+// Verificar si se envió el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $rutpersonal = $_POST['rutpersonal'];
+    $contrasena = $_POST['contrasena'];
+
+    // Consultar usuario en la base de datos
+    $sql = "SELECT id, rutpersonal, contrasena FROM usuarios WHERE rutpersonal = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $rutpersonal);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Usuario encontrado
+        $row = $result->fetch_assoc();
+
+        // Verificar la contraseña
+        if (password_verify($contrasena, $row['contrasena'])) {
+            // Contraseña correcta: iniciar sesión
+            $_SESSION['usuario_id'] = $row['id'];
+            $_SESSION['rutpersonal'] = $row['rutpersonal']; // Guardar datos en la sesión
+            header("Location: ../index.php"); // Redirigir al panel principal
+            exit();
+        } else {
+            $mensaje = "<p class='error'>Contraseña incorrecta.</p>";
+        }
+    } else {
+        $mensaje = "<p class='error'>RUT no encontrado.</p>";
+    }
+
+    // Cerrar la declaración
+    $stmt->close();
+}
+
+// Cerrar la conexión
+$conn->close();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -99,46 +149,27 @@
 <body>
 
 <div class="login-container">
-    <h2>Iniciar Sesión</h2>
-    <?php
-    // Definición de usuario y contraseña correctos
-    $usuarioCorrecto = "usuario";
-    $contrasenaCorrecta = "1234";
-    $mensaje = "";
+        <h2>Iniciar Sesión</h2>
 
-    // Verificación si se envió el formulario
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $usuario = $_POST['usuario'];
-        $contrasena = $_POST['contrasena'];
+        <!-- Formulario de Login -->
+        <form method="POST" action="">
+            <div class="form-group">
+                <label for="rutpersonal">RUT Personal:</label>
+                <input type="text" id="rutpersonal" name="rutpersonal" required>
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required>
+            </div>
+            <button type="submit" class="btn">Ingresar</button>
+            <a href="register.php" style="text-decoration:none; color:black;">
+                <p style="padding-top:8px;">Crear una cuenta</p>
+            </a>
+        </form>
 
-        // Validación de usuario y contraseña
-        if ($usuario === $usuarioCorrecto && $contrasena === $contrasenaCorrecta) {
-            $mensaje = "<p class='success'>Inicio de sesión exitoso.</p>";
-        } else {
-            $mensaje = "<p class='error'>Usuario o contraseña incorrectos.</p>";
-        }
-    }
-    ?>
-
-    <!-- Formulario de Login -->
-    <form method="POST" action="">
-        <div class="form-group">
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" required>
-        </div>
-        <div class="form-group">
-            <label for="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" name="contrasena" required>
-        </div>
-        <button type="submit" class="btn">Ingresar</button>
-        <a href="register.php" style="text-decoration:none; color:black;">
-            <p style="padding-top:8px;">Crear una cuenta</p>
-        </a>
-    </form>
-
-    <!-- Mostrar mensaje de éxito o error -->
-    <?php echo $mensaje; ?>
-</div>
+        <!-- Mostrar mensaje de éxito o error -->
+        <?php echo $mensaje; ?>
+    </div>
 
 </body>
 </html>

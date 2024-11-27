@@ -1,3 +1,33 @@
+<?php
+// Iniciar la sesión
+session_start();
+
+// Configuración de la base de datos
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "db-sicosi"; // Cambia esto al nombre real de tu base de datos
+
+// Crear conexión
+$conn = new mysqli($host, $user, $password, $database);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Error en la conexión: " . $conn->connect_error);
+}
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['usuario_id'])) {
+    // Redirigir al login si no hay sesión activa
+    header("Location: pages/login.php");
+    exit();
+}
+
+// Datos del usuario en sesión
+$rutpersonal = $_SESSION['rutpersonal'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +165,7 @@
             </div>
             <div class="buttons-nvtop">
                 <button class="btn-nvtop">Ver Usuario</button>
-                <button class="btn-nvtop">Cerrar Sesión</button>
+                <button class="btn-nvtop" onclick="location.href='pages/logout.php';">Cerrar Sesión</button>
             </div>
         </div>
 
